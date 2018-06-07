@@ -1,0 +1,50 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# @Time    : 2018/6/6 17:43
+# @Author  : JY.Liu
+# @Site    : http://github.com/lh1993
+# @File    : test2.py
+# @Software: PyCharm
+
+import tablib
+
+headers = ('first_name', 'last_name')
+data = [('xiaozhao', 'zhao'),
+        ('xiaoqian', 'qian'),
+        ('xiaosun', 'sun')
+        ]
+
+data = tablib.Dataset(*data, headers=headers)
+
+# add new rows:
+data.append(('xiaoli', 'li'))
+data.append(('xiaozhou', 'zhou'))
+
+
+# add new columns
+data.append_col((18, 19, 20, 21, 19), header='age')
+
+# Slice columns by header
+print(data['last_name'])
+
+# Slice rows
+print(data[:2])
+print(data[2:])
+
+# export json
+print(data.json)
+print(data.export('json'))
+
+# export xls/csv
+print(data.csv)
+with open('people.xls', 'wb') as f:
+    f.write(data.export('xls'))
+
+# export yaml
+print(data.yaml)
+print(data.export('yaml'))
+
+
+# export html
+print(data.html)
+print(data.export('html'))
